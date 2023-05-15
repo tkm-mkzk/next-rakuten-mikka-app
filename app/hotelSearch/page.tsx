@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { HotelInfo, HotelSearchResult } from '@/types/hotelSearch.type'
-import { getHotels } from '@/components/api/getHotels'
+import { getHotels } from '@/api/getHotels'
 
 const HotelSearch = () => {
   const [query, setQuery] = useState('')
