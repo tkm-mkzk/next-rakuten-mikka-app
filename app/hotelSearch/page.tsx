@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { HotelInfo, HotelSearchResult } from '@/types/hotelSearch.type'
+import { getHotels } from '@/components/api/getHotels'
 
 const HotelSearch = () => {
   const [query, setQuery] = useState('')
@@ -11,23 +12,10 @@ const HotelSearch = () => {
     }[]
   >([])
 
-  const handleSearch = async () => {
-    try {
-      const response = await fetch(
-        `https://app.rakuten.co.jp/services/api/Travel/KeywordHotelSearch/20170426?format=json&keyword=${query}&applicationId=${process.env.NEXT_PUBLIC_RAKUTEN_ID}`
-      )
-      const data = await response.json()
-      return data.hotels
-    } catch (error) {
-      console.error(error)
-      throw error
-    }
-  }
-
   const handleButtonClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault() // prevent page reload
+    e.preventDefault()
     try {
-      const hotelsData = await handleSearch()
+      const hotelsData = await getHotels(query)
       setHotels(hotelsData)
     } catch (error) {
       console.error(error)
